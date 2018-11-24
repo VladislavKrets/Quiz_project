@@ -3,8 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
+    <link href="Users.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+    <div class="top-block">
+        <div class="menu">
+            <a href="/admin/users">Users</a>
+            <a href="/admin/statistics">Statistics</a>
+            <a href="/admin/logout">Logout</a>
+        </div>
+        <div class="title">
+            <span>Users</span>
+        </div>
+    </div>
+    <div class="middle-block">
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>username</td>
+                    <td>password</td>
+                    <td>type</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users: %}
+                <tr>
+                    <td>{{user['id']}}</td>
+                    <td>{{user['username']}}</td>
+                    <td>{{user['password']}}</td>
+                    <td>{{user['type']}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

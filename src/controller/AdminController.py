@@ -22,7 +22,7 @@ def statistics():
     if 'username' in session:
         return render_template('Statistics.html')
     else:
-        return redirect(url_for('/admin/login'))
+        return redirect(url_for('login'))
 
 
 @app.route('/admin/users', methods=['GET'])
@@ -30,15 +30,15 @@ def users():
     if 'username' in session:
         users = dao.getUsers()
         #todo
-        return render_template('Users.html')
+        return render_template('Users.html', users=users)
     else:
-        return redirect(url_for('/admin/login'))
+        return redirect(url_for('login'))
 
 
 @app.route('/admin/logout', methods=['GET'])
 def logout():
     session.pop('username', None)
-    return redirect(url_for('/admin/login'))
+    return redirect(url_for('login'))
 
 
 app.run()
