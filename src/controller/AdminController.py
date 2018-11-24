@@ -32,7 +32,6 @@ def statistics():
 def users():
     if 'username' in session:
         users = dao.getUsers()
-        #todo
         return render_template('Users.html', users=users)
     else:
         return redirect(url_for('login'))

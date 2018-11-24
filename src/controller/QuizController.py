@@ -15,8 +15,7 @@ def checkToken(token):
         answers = dict()
         for question in questions:
             answers[question["id"]] = dao.getAnswersByQuizIdAndQuestionId(quiz['quiz_id'], question['question_id'])
-        # todo
-        return render_template('Quiz.html')
+        return render_template('Quiz.html', quiz=quiz, questions=questions, answers=answers)
     else:
         redirect(url_for('error'))
 
