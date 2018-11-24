@@ -10,9 +10,13 @@ app.secret_key = os.urandom(16)
 
 @app.route('/admin/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in session:
+        redirect(url_for('users'))
     if request.method == 'POST':
-        if len(dao.isUserInDb(request.form['username'], request.form['password'])) != 0:
+        user = dao.isUserInDb(request.form['username'], request.form['password'])
+        if len(user) != 0:
             session['username'] = request.form['username']
+            session['type'] = user['type']
         return redirect(url_for('users'))
     return render_template('Login.html')
 
