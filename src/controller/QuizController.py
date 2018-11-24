@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 
 from src.model.DAO import DAO
 
@@ -6,7 +6,7 @@ app = Flask(__name__, template_folder='../view/quiz')
 dao = DAO()
 
 
-@app.route('/quiz/<token>', methods=['GET'])
+@app.route('/quiz/<token>', methods=['GET'], ['POST'])
 def checkToken(token):
     tokenEntity = dao.checkToken(token)
     if len(tokenEntity) != 0:
@@ -15,9 +15,13 @@ def checkToken(token):
         answers = dict()
         for question in questions:
             answers[question["id"]] = dao.getAnswersByQuizIdAndQuestionId(quiz['quiz_id'], question['question_id'])
-        return render_template('Quiz.html', quiz=quiz, questions=questions, answers=answers)
+        if request.method == 'GET':
+            return render_template('Quiz.html', quiz=quiz, questions=questions, answers=answers)
+        else:
+            # todo
+            return render_template('QuizEnding.html')
     else:
-        redirect(url_for('error'))
+        return redirect(url_for('error'))
 
 
 @app.route('/error', methods=['GET'])
