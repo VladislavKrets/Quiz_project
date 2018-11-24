@@ -5,6 +5,22 @@
     <title>Quiz</title>
 </head>
 <body>
-
+    <div class="quiz-header">
+        <span class="name">{{quiz['name']}}</span><br/>
+        <span class="information">{{quiz['information']}}</span><br/>
+    </div>
+    <div class="quiz-body">
+        {% for question in questions %}
+        <div class="question">
+            <span class="question-text">{{question['text']}}</span><br/>
+            {% for answer in answers[question['id']] %}
+            <span class="answer-text">{{answer['text']}}</span>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="quiz-apply">
+        <input type="submit" value="Send answers">
+    </div>
 </body>
 </html>
