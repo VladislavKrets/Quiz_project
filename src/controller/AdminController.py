@@ -16,7 +16,6 @@ def login():
         user = dao.isUserInDb(request.form['username'], request.form['password'])
         if len(user) != 0:
             session['username'] = request.form['username']
-            session['type'] = user['type']
         return redirect(url_for('users'))
     return render_template('Login.html')
 
